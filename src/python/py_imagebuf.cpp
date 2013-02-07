@@ -151,9 +151,10 @@ void ImageBufWrap::setpixel_i (int i, const float *pixel,
 // ImageInput.read_image() was wrapped.
 bool ImageBufWrap::get_pixels (int xbegin, int xend, int ybegin, int yend,
                                 int zbegin, int zend,
-                                TypeDesc format, void *result) const {
+                                TypeDesc format, object &result) const {
+    void *write_buf = make_write_buffer(result, spec().image_pixels() * spec().nchannels * format.basesize());
     return m_buf->get_pixels(xbegin, xend, ybegin, yend, zbegin, zend,
-                              format, result);
+                              format, write_buf);
 }
 
 // TODO: handle T and <T>. Don't know how to handle this with B.P, 

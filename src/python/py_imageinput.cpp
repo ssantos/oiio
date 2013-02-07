@@ -165,7 +165,7 @@ object ImageInputWrap::read_image (TypeDesc format)  {
 */
 
 // This function prepares a buffer for writing to it from c++
-void* ImageInputWrap::make_write_buffer (object &buffer, Py_ssize_t expected_len)
+void* make_write_buffer (object &buffer, Py_ssize_t expected_len)
 {
     void *array;
     Py_ssize_t len;

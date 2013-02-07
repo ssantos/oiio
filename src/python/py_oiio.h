@@ -59,6 +59,7 @@ void declare_typedesc();
 void declare_imagecache();
 void declare_imagebuf();
 void declare_paramvalue();
+void* make_write_buffer (object&, Py_ssize_t);
 
 bool PyProgressCallback(void*, float);
 
@@ -67,7 +68,6 @@ private:
     /// Friend declaration for ImageOutputWrap::copy_image
     friend class ImageOutputWrap;
     ImageInput *m_input;
-    void* make_write_buffer (object&, Py_ssize_t);
 public:
 	virtual ~ImageInputWrap();
     static boost::python::object create(const std::string&, const std::string&);
@@ -215,7 +215,7 @@ public:
     // this defeat the purpose of Python? Instead, the wrapper could
     // allocate that array, fill it, and return it to Python. This is the way
     // ImageInput.read_image() was wrapped.
-    bool get_pixels (int, int, int, int, int, int, TypeDesc, void*) const;
+    bool get_pixels (int, int, int, int, int, int, TypeDesc, object&) const;
 
     // TODO: handle T and <T>. Don't know how to handle this with B.P, 
     // though haven't given it much thought yet.
